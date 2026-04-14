@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo List</title>
+
+  <style>
+    body {
+      background: #fffde7; /* light yellow */
+      font-family: Arial;
+      text-align: center;
+    }
+
+    .box {
+      background: white;
+      width: 350px;
+      margin: 20px auto;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      color: #f9a825;
+    }
+
+    input {
+      padding: 5px;
+      width: 60%;
+    }
+
+    button {
+      padding: 5px 10px;
+      margin: 5px;
+      border: none;
+      background: #fbc02d;
+      color: black;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    li {
+      margin: 8px;
+      cursor: pointer;
+    }
+
+    .done {
+      text-decoration: line-through;
+      color: gray;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<h1 style="color:#f57f17;">Todo Application</h1>
+
+<!-- 💼 WORK TASKS -->
+<div class="box">
+  <h2>Work Tasks</h2>
+  <input id="workInput" placeholder="Enter work task">
+  <button onclick="addWork()">➕</button>
+  <ul id="workList"></ul>
+</div>
+
+<!-- 🏠 PERSONAL TASKS -->
+<div class="box">
+  <h2>Personal Tasks</h2>
+  <input id="personalInput" placeholder="Enter personal task">
+  <button onclick="addPersonal()">➕</button>
+  <ul id="personalList"></ul>
+</div>
+
+<script>
+
+// 💼 ADD WORK TASK
+function addWork() {
+  let input = document.getElementById("workInput");
+  createTask(input.value, "workList");
+  input.value = "";
+}
+
+// 🏠 ADD PERSONAL TASK
+function addPersonal() {
+  let input = document.getElementById("personalInput");
+  createTask(input.value, "personalList");
+  input.value = "";
+}
+
+// 🔁 COMMON FUNCTION
+function createTask(text, listId) {
+  if (!text) return;
+
+  let li = document.createElement("li");
+  li.innerText = text;
+
+  // ✅ mark complete
+  li.onclick = () => {
+    li.classList.toggle("done");
+  };
+
+  // ❌ delete button
+  let del = document.createElement("button");
+  del.innerText = "❌";
+  del.onclick = (e) => {
+    e.stopPropagation();
+    li.remove();
+  };
+
+  li.appendChild(del);
+  document.getElementById(listId).appendChild(li);
+}
+
+</script>
+
+</body>
+</html>
